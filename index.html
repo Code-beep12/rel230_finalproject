@@ -1,0 +1,221 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Path to Freedom: Attachment and Suffering</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Ambient background shapes for atmosphere -->
+  <div class="bg-orb orb-a" aria-hidden="true"></div>
+  <div class="bg-orb orb-b" aria-hidden="true"></div>
+  <div class="bg-orb orb-c" aria-hidden="true"></div>
+
+  <main class="app" id="app">
+    <header class="top">
+      <div class="mark">
+        <div class="mark-dot"></div>
+        <div>
+          <div class="mark-title">The Path to Freedom</div>
+          <div class="mark-sub">Attachment, Self, and Suffering in Buddhism</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Home screen -->
+    <section class="screen active" data-screen="home">
+      <div class="panel">
+        <h1>The Path to Freedom: Exploring Attachment and Suffering in Buddhism</h1>
+        <p>
+          In Buddhist thought, <strong>attachment</strong> (tanha / taṇhā) is not only wanting things.
+          It is also clinging to identity, status, relationships, control, and security. That
+          clinging fuels <strong>suffering</strong> (dukkha), the unease that appears when life changes
+          and the self tries to hold on.
+        </p>
+        <p>
+          Drawing on class discussions, David Loy's account of the insecure constructed self, and
+          Peter Harvey's explanation of Buddhist ethics, this interactive journey asks how ordinary
+          choices can deepen attachment or open a path toward freedom.
+        </p>
+        <div class="intro-grid">
+          <div class="intro-card">
+            <h3>Dukkha</h3>
+            <p>Suffering is not only pain. It is the deeper dissatisfaction that appears when we cling.</p>
+          </div>
+          <div class="intro-card">
+            <h3>Anatta</h3>
+            <p>The self is not fixed or permanent. Trying to defend it too tightly creates anxiety.</p>
+          </div>
+          <div class="intro-card">
+            <h3>Practice</h3>
+            <p>Mindfulness, generosity, and wiser action loosen the grip of craving and self-protection.</p>
+          </div>
+        </div>
+        <button class="btn primary" id="startBtn">Start the interactive experience</button>
+      </div>
+    </section>
+
+    <!-- Character selection -->
+    <section class="screen" data-screen="characters">
+      <div class="panel">
+        <h2>Choose Your Character</h2>
+        <p class="muted">Each character embodies a different kind of attachment that shapes the journey.</p>
+        <div class="card-grid" id="characterGrid">
+          <button class="card" data-character="Prince">
+            <img class="character-art" src="assets/prince.jpg" alt="Illustration of the Prince character" />
+            <h3>Prince</h3>
+            <p>Lives close to honor, image, and recognition.</p>
+            <div class="traits">
+              <span>status</span>
+              <span>image</span>
+              <span>honor</span>
+            </div>
+          </button>
+          <button class="card" data-character="Merchant">
+            <img class="character-art" src="assets/merchant.png" alt="Illustration of the Merchant character" />
+            <h3>Merchant</h3>
+            <p>Measures life through security, gain, and control.</p>
+            <div class="traits">
+              <span>wealth</span>
+              <span>control</span>
+              <span>restlessness</span>
+            </div>
+          </button>
+          <button class="card" data-character="Student">
+            <img class="character-art" src="assets/student.jpg" alt="Illustration of the Student character" />
+            <h3>Student</h3>
+            <p>Feels the pressure of approval, identity, and future success.</p>
+            <div class="traits">
+              <span>approval</span>
+              <span>identity</span>
+              <span>future</span>
+            </div>
+          </button>
+        </div>
+        <button class="btn ghost" id="backToHome">Back</button>
+      </div>
+    </section>
+
+    <!-- Interactive story -->
+    <section class="screen" data-screen="story">
+      <div class="panel">
+        <div class="story-header">
+          <div>
+            <div class="label">Character</div>
+            <div class="value" id="characterName">-</div>
+            <div class="character-note muted" id="characterNote">-</div>
+          </div>
+          <div class="meter-wrap" aria-live="polite">
+            <div class="label">Suffering meter</div>
+            <div class="meter">
+              <div class="meter-bar" id="meterBar"></div>
+            </div>
+            <div class="meter-value" id="meterValue">0</div>
+          </div>
+          <div class="meter-wrap path-wrap" aria-live="polite">
+            <div class="label">Path qualities</div>
+            <div class="path-meter">
+              <div class="path-segment path-greed" id="greedValue">Greed 0</div>
+              <div class="path-segment path-compassion" id="compassionValue">Compassion 0</div>
+              <div class="path-segment path-wisdom" id="wisdomValue">Wisdom 0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-body">
+          <div class="scenario">
+            <div class="scene-art-wrap">
+              <img class="scene-art" id="sceneArt" src="assets/desire.jpg" alt="Symbolic illustration for the current scene" />
+            </div>
+            <div class="scenario-step" id="scenarioStep">Step 1 of 5</div>
+            <div class="scenario-theme" id="scenarioTheme">Theme</div>
+            <h2 id="scenarioTitle">Scenario title</h2>
+            <p id="scenarioText">Scenario text</p>
+          </div>
+          <div class="choices" id="choices"></div>
+          <div class="feedback" id="feedback">Make a choice to see the consequences.</div>
+          <div class="story-actions">
+            <button class="btn ghost" id="insightBtn">Insight</button>
+            <button class="btn ghost" id="sourceBtn">Course Lens</button>
+            <button class="btn primary" id="nextBtn" disabled>Next</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Learning side panel -->
+      <aside class="insight" id="insightPanel" aria-live="polite">
+        <div class="insight-header">
+          <span class="pill">Learning moment</span>
+          <button class="icon-btn" id="closeInsight" aria-label="Close">×</button>
+        </div>
+        <div id="insightContent">
+          <h3>Key Concepts</h3>
+          <p>Select a choice to reveal related concepts.</p>
+        </div>
+        <div class="source-mode" id="sourceMode" hidden>
+          <h3>Course Lens</h3>
+          <p id="sourceContent">Open this panel to see how the current moment connects to the readings.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- End screen and reflection -->
+    <section class="screen" data-screen="end">
+      <div class="panel">
+        <h2 id="endTitle">Outcome</h2>
+        <p id="endReflection">Reflection text goes here.</p>
+        <div class="ending-readings" id="endingReadings">
+          <p>The readings summary will appear here.</p>
+        </div>
+        <div class="end-summary">
+          <div>
+            <div class="label">Final suffering</div>
+            <div class="value" id="finalSuffering">0</div>
+          </div>
+          <div>
+            <div class="label">Letting go choices</div>
+            <div class="value" id="letGoCount">0</div>
+          </div>
+          <div>
+            <div class="label">Dominant attachment</div>
+            <div class="value" id="dominantAttachment">-</div>
+          </div>
+          <div>
+            <div class="label">Strongest virtue</div>
+            <div class="value" id="strongestVirtue">-</div>
+          </div>
+          <div>
+            <div class="label">Path pattern</div>
+            <div class="value" id="pathPattern">-</div>
+          </div>
+        </div>
+        <section class="journal-summary">
+          <h3>Your Path Journal</h3>
+          <ul id="journalSummary">
+            <li>No journal entries yet.</li>
+          </ul>
+        </section>
+        <div class="reflection-prompts">
+          <h3>Reflection Prompts</h3>
+          <ul>
+            <li>Which choice felt most natural to you, and why?</li>
+            <li>Did your path protect comfort, identity, status, or control?</li>
+            <li>What might a more mindful response look like in your own life?</li>
+          </ul>
+        </div>
+        <section class="source-panel">
+          <h3>Sources Behind This Project</h3>
+          <p>
+            This project draws on course lectures, David Loy's account of the insecure constructed
+            self, and Peter Harvey's explanation of wholesome action, virtue, and the reduction of suffering.
+          </p>
+        </section>
+        <button class="btn primary" id="restartBtn">Restart the journey</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
